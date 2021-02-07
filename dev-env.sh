@@ -64,9 +64,9 @@ run_container() {
       --mount type=bind,source="$HOME/.spacemacs",target="$home_inside/.spacemacs" \
       --mount type=bind,source="$HOME/workspace",target="$home_inside/workspace" \
       "$name" \
-      zsh
+      zsh -c "$zsh_command"
   else
-    docker exec -it "$name" zsh
+    docker exec -it "$name" zsh -c "$zsh_command"
   fi
 }
 
@@ -79,6 +79,8 @@ parse_params() {
   docker_group_id="$(cut -d: -f3 < <(getent group docker))"
   home_inside="/home/$user_name"
   timezone="$(cat /etc/timezone)"
+  current_dir="$(pwd)"
+  zsh_command="[ -d $current_dir ] && cd $current_dir; zsh"
 
   while [[ $# -gt 0 ]]; do
     case $1 in
