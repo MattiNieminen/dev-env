@@ -38,6 +38,7 @@ build_image() {
     docker build \
       --build-arg USER_NAME="$user_name" \
       --build-arg USER_ID="$user_id" \
+      --build-arg DOCKER_GROUP_ID="$docker_group_id" \
       --build-arg DEBIAN_FRONTEND="noninteractive" \
       --build-arg TZ="$timezone" \
       -t "$name" "$build_dir"
@@ -50,8 +51,9 @@ run_container() {
       --privileged \
       --network=host \
       --mount type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix \
+      --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
       -e DISPLAY="unix$DISPLAY" \
-      --user "$user_id:$group_id" \
+      --user "$user_id" \
       --name "$name" \
       --mount type=volume,source="$name",target="$home_inside/" \
       --mount type=bind,source="$HOME/.gitconfig",target="$home_inside/.gitconfig" \
@@ -74,7 +76,7 @@ parse_params() {
   rebuild_image="false"
   user_name="$(whoami)"
   user_id="$(id -u)"
-  group_id="$(id -g)"
+  docker_group_id="$(cut -d: -f3 < <(getent group docker))"
   home_inside="/home/$user_name"
   timezone="$(cat /etc/timezone)"
 
