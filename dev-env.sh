@@ -50,9 +50,11 @@ run_container() {
     docker run -it --rm \
       --privileged \
       --network=host \
-      --mount type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix \
+      --mount type=bind,source="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY",target="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" \
       --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
       -e DISPLAY="unix$DISPLAY" \
+      -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
+      -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
       --user "$user_id" \
       --name "$name" \
       --mount type=volume,source="$name",target="$home_inside/" \

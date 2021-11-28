@@ -3,7 +3,7 @@
 My isolated and extendable software development environment with automated and
 repeatable installation.
 
-Implemented using Docker. Xorg server must be running on host for this to work.
+Implemented using Docker. Host must be running Wayland for this to work.
 
 * Git (shared configuration with host).
 * Zsh (shared configuration with host).
