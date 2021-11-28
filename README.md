@@ -7,10 +7,11 @@ Implemented using Docker. Host must be running Wayland for this to work.
 
 * Git (shared configuration with host).
 * Zsh (shared configuration with host).
-* JDK, Maven.
+* JDK.
 * Javascript, Node, NPM.
-* Clojure(script), CLI Tools, Leiningen.
-* Spacemacs (shared configuration with host).
+* Clojure(script) and related CLI Tools.
+* Visual Studio Code.
+* IntelliJ Idea.
 * Google Chrome.
 * Various utilities.
 

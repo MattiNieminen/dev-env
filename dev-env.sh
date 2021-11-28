@@ -41,6 +41,7 @@ build_image() {
       --build-arg DOCKER_GROUP_ID="$docker_group_id" \
       --build-arg DEBIAN_FRONTEND="noninteractive" \
       --build-arg TZ="$timezone" \
+      --build-arg XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" \
       -t "$name" "$build_dir"
   fi
 }
@@ -63,7 +64,6 @@ run_container() {
       --mount type=bind,source="$HOME/.zshrc",target="$home_inside/.zshrc" \
       --mount type=bind,source="$HOME/.zsh",target="$home_inside/.zsh" \
       --mount type=bind,source="$HOME/.zsh_history",target="$home_inside/.zsh_history" \
-      --mount type=bind,source="$HOME/.spacemacs",target="$home_inside/.spacemacs" \
       --mount type=bind,source="$HOME/workspace",target="$home_inside/workspace" \
       "$name" \
       zsh -c "$zsh_command"
