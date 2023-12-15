@@ -1,5 +1,8 @@
 # Dev-env
 
+**Deprecated: see [Realms](https://github.com/MattiNieminen/realms)
+for better approach.**
+
 My isolated and extendable software development environment with automated and
 repeatable installation.
 
